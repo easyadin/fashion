@@ -1,20 +1,94 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border ion-padding" [style.background-color]="currentProduct.bgColor">
   <ion-toolbar>
-    <ion-title>
-      Blank
+    <ion-title [style.color]="currentProduct.color">
+      Wear Kit
     </ion-title>
+
+    <ion-buttons slot="primary">
+      <ion-button>
+        <svg [style.fill]="currentProduct.color" xmlns="http://www.w3.org/2000/svg" width="44.999" height="32.386"
+          viewBox="0 0 44.999 32.386">
+          <path [style.fill]="currentProduct.color" id="Icon_awesome-opencart" data-name="Icon awesome-opencart"
+            d="M29.763,30.987a3.213,3.213,0,1,1-3.206-3.22,3.2,3.2,0,0,1,3.206,3.22Zm-17.852-3.22a3.213,3.213,0,1,0,3.22,3.22,3.212,3.212,0,0,0-3.22-3.22ZM32.421,8.782C11.173,8.782,5.759,7.882,0,1.807c2.419,3.635,3.748,10.47,26.234,10.139,23.435-.352,9.141,6.054,4.978,13.282C44.339,13.507,53.67,8.782,32.421,8.782Z"
+            transform="translate(0 -1.807)" fill="#e6e6e6" />
+        </svg>
+      </ion-button>
+      <ion-button>
+        <ion-icon name="menu-outline" [style.color]="currentProduct.color"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" [style.background-color]="currentProduct.bgColor">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="4" size="12">
+        <ion-label>
+          <ion-item lines="none" detail="false" class="currentProduct">
+            <h1 [style.color]="currentProduct.color">
+              {{currentProduct.name}}
+            </h1>
+          </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+          <!-- next product-->
+          <ion-item lines="none" details="false" (click)="gotoAndShowItem(nextProduct)" button
+            [style.background-color]="currentProduct.secColor" class="nextProduct">
+            <ion-avatar slot="start">
+              <img [src]="nextProduct.img">
+            </ion-avatar>
+            <ion-label>
+              <h1 [style.color]="currentProduct.lightColor">{{nextProduct.name}}</h1>
+              <p>Next</p>
+            </ion-label>
+          </ion-item>
+
+          <ion-item class="buttonSlider" lines="none" details="false">
+            <ion-buttons>
+              <ion-button *ngFor="let product of productList" (click)="gotoAndShowItem(product)"
+                [style.color]="currentProduct.color" shape="round">
+                •
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-label>
+      </ion-col>
+
+      <ion-col size-lg="4" size="12">
+        <img [src]="currentProduct.img">
+      </ion-col>
+
+      <ion-col size-lg="4" size="12">
+        <ion-item lines="none" details="false">
+          <ion-buttons class="colorSelection">
+            <ion-button fill="outline" [style.color]="currentProduct.color1">•</ion-button>
+            <ion-button fill="outline" [style.color]="currentProduct.color2">•</ion-button>
+          </ion-buttons>
+        </ion-item>
+        <ion-item lines="none" details="false" class="priceAndDescription">
+          <label>
+            <h1 [style.color]="currentProduct.color"> {{currentProduct.price}}</h1>
+            <p [style.color]="currentProduct.color"> {{currentProduct.description}}</p>
+          </label>
+        </ion-item>
+        <ion-item lines="none" details="false" class="sizes">
+          <ion-buttons>
+            <ion-button fill="outline" *ngIf="currentProduct.sizeS" [style.color]="currentProduct.color">S</ion-button>
+            <ion-button fill="outline" *ngIf="currentProduct.sizeM" [style.color]="currentProduct.color">M</ion-button>
+            <ion-button fill="outline" *ngIf="currentProduct.sizeL" [style.color]="currentProduct.color">L</ion-button>
+          </ion-buttons>
+        </ion-item>
+        <ion-item details="false" class="addToCart">
+          <ion-buttons slot="end">
+            <ion-button [style.color]="currentProduct.color">
+              ADD TO CART
+            </ion-button>
+            <ion-button>
+              <ion-icon name="add" [style.color]="currentProduct.color"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
